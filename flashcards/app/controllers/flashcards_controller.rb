@@ -1,5 +1,5 @@
 class FlashcardsController < ApplicationController
-  before_action :set_flashcard, only: [:show, :update, :destroy]
+  before_action :set_flashcard, only: [:show, :tags, :update, :destroy]
 
   # GET /flashcards
   def index
@@ -11,6 +11,11 @@ class FlashcardsController < ApplicationController
   # GET /flashcards/1
   def show
     render json: @flashcard
+  end
+
+  # GET /flashcards/1/tags
+  def tags
+    @flashcard.tags
   end
 
   # POST /flashcards
@@ -39,13 +44,13 @@ class FlashcardsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_flashcard
-      @flashcard = Flashcard.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_flashcard
+    @flashcard = Flashcard.find(params[:id])
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def flashcard_params
-      params.require(:flashcard).permit(:user_id, :question, :answer)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def flashcard_params
+    params.require(:flashcard).permit(:user_id, :question, :answer)
+  end
 end
